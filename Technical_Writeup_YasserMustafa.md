@@ -54,7 +54,7 @@ LlamaIndex was considered for its native RAG capabilities. LangChain was chosen 
 A simple schedule library loop was the minimal option. APScheduler was chosen for production readiness: it supports cron-style scheduling, misfire handling, and job persistence — important when the agent is expected to run continuously. Airflow or Prefect would be appropriate for a distributed production system.
 
 ## 5. Open-Source Foundation
-**PipeScraper** is an open-source Python library developed by the author and published on GitHub and PyPI. It is part of a broader ecosystem including **PipeFrame** (verb-based Pandas operations), **PipePlotly** (Grammar of Graphics visualisation), and **openclawpy** (OpenClaw Gateway SDK). The IIC (Incident Intelligence Collector) platform — a production Streamlit news intelligence pipeline using Groq and LangChain — provided direct architectural precedent for this submission. This challenge solution demonstrates how open-source tooling developed independently can be applied to real production problems.
+**PipeScraper** is an open-source Python library developed by me, Dr. Yasser Mustafa, and published on GitHub and PyPI. I have also created a broader ecosystem of open-source packages alongside it, including **PipeFrame** (verb-based Pandas operations), **PipePlotly** (Grammar of Graphics visualisation), and **openclawpy** (OpenClaw Gateway SDK). The IIC (Incident Intelligence Collector) platform — a production Streamlit news intelligence pipeline using Groq and LangChain — provided direct architectural precedent for this submission. This challenge solution demonstrates how open-source tooling I developed independently can be applied to real production problems.
 
 ---
 **Dr. Yasser Mustafa**  
