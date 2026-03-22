@@ -98,7 +98,7 @@ changes to their internals. This modularity was a conscious design choice, not a
 
 The challenge brief suggests BeautifulSoup and Requests as the scraping stack. I chose instead to build on
 **PipeScraper** — an open-source Python library I authored and published at
-`github.com/Yasser03/pipescraper`. This decision warrants explanation, because choosing your own
+[`github.com/Yasser03/pipescraper`](https://github.com/Yasser03/pipescraper). This decision warrants explanation, because choosing your own
 tooling is only defensible if the tooling is genuinely the right fit.
 
 PipeScraper is built on top of Trafilatura, which is the current state-of-the-art in boilerplate-free article

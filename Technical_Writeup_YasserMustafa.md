@@ -1,6 +1,5 @@
 # GenAI Report Agent - Technical Write-Up
-
-**Data Reply — Graduate AI Engineer Take-Home Challenge**  
+  
 **Dr. Yasser Mustafa | March 2026**
 
 ## 1. Problem Understanding
@@ -15,7 +14,7 @@ The fundamental design challenge is ensuring the system is both autonomous (runs
 The system is implemented as a modular Python application with four layers:
 
 ### 2.1 Data Collection — PipeScraper
-Article collection is handled by **PipeScraper** (github.com/Yasser03/pipescraper), an open-source pipe-based news scraping library built on Trafilatura and newspaper3k. The library exposes a composable `>>` operator API:
+Article collection is handled by **[PipeScraper](https://github.com/Yasser03/pipescraper)**, an open-source pipe-based news scraping library built on Trafilatura and newspaper3k. The library exposes a composable `>>` operator API:
 `FetchGoogleNews(search=["AI regulation"], period="1d") >> ExtractArticles(workers=4) >> ToDataFrame()`
 
 PipeScraper provides: parallel article extraction, Google News search with automatic URL decoding (bypassing the consent wall), robots.txt compliance, built-in deduplication, and native DataFrame export. The system falls back to BBC RSS feeds if the primary pipeline is unavailable.
@@ -31,13 +30,13 @@ The Streamlit app provides a three-tab interface: Latest Report (structured disp
 
 ## 3. Key GenAI Concepts Used
 
-| Concept | Where Applied | Why |
-|---|---|---|
-| **Structured Prompting** | Report generation prompt forces strict JSON schema output | Eliminates post-hoc parsing ambiguity; ensures reproducible structured outputs |
-| **Grounded Generation (RAG-lite)** | Full report injected as system context for the chat chain | Prevents hallucination; ensures chat responses are evidence-based |
-| **Instruction Hierarchy** | System prompt sets constraints; user turn carries query | Separates behavioural rules from user intent — standard LLM safety practice |
-| **Temperature Control** | temp=0.3 for reports; temp=0.5 for chat | Lower temp = more factual reports; slightly higher = natural conversational tone |
-| **Entity Extraction** | LLM identifies organisations and key actors from article text | Avoids brittle NER pipelines; LLM context awareness yields richer extraction |
+| Concept                            | Where Applied                                                 | Why                                                                              |
+| ---------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Structured Prompting**           | Report generation prompt forces strict JSON schema output     | Eliminates post-hoc parsing ambiguity; ensures reproducible structured outputs   |
+| **Grounded Generation (RAG-lite)** | Full report injected as system context for the chat chain     | Prevents hallucination; ensures chat responses are evidence-based                |
+| **Instruction Hierarchy**          | System prompt sets constraints; user turn carries query       | Separates behavioural rules from user intent — standard LLM safety practice      |
+| **Temperature Control**            | temp=0.3 for reports; temp=0.5 for chat                       | Lower temp = more factual reports; slightly higher = natural conversational tone |
+| **Entity Extraction**              | LLM identifies organisations and key actors from article text | Avoids brittle NER pipelines; LLM context awareness yields richer extraction     |
 
 ## 4. Alternatives Considered
 
