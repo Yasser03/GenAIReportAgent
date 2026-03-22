@@ -58,4 +58,4 @@ A simple schedule library loop was the minimal option. APScheduler was chosen fo
 ---
 **Dr. Yasser Mustafa**  
 *Lead Data Scientist — PhD Theoretical Physics — 10+ years production AI*  
-github.com/Yasser03 | yasser.mustafan@gmail.com
+[GitHub](https://github.com/Yasser03) | [Medium](https://medium.com/@yasser.mustafan) | yasser.mustafan@gmail.com
