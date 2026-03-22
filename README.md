@@ -108,6 +108,18 @@ Other integrations include:
 
 ---
 
+## 📖 Extended Documentation
+
+This repository contains two detailed documents explaining the engineering decisions, architecture, and design principles behind the GenAI Report Agent:
+
+1. **[Technical Write-Up](Technical_Writeup_YasserMustafa.md)**  
+   A comprehensive technical breakdown of the system architecture, structured LLM prompting strategies, grounded conversational chat setup, and the specific alternatives evaluated during development.
+
+2. **[GenAI Report Agent Article](genai_report_agent_article.md)**  
+   A professionally formatted, creative Medium-style article walking through the end-to-end integration of pipe-based scraping, LLM synthesisation, and RAG-lite retrieval from first principles.
+
+---
+
 ## 🗂 Project Structure
 
 ```text
