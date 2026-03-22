@@ -5,6 +5,9 @@ from langchain_core.prompts import ChatPromptTemplate
 
 def build_chat_chain(report: dict):
     context = json.dumps(report, indent=2)
+    # Escape curly braces so LangChain doesn't interpret them as variables
+    context = context.replace("{", "{{").replace("}", "}}")
+    
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
         temperature=0.5,
