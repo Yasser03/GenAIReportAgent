@@ -129,7 +129,7 @@ raw = (
 The result is a pandas DataFrame with columns for `title`, `url`, `text`,
 `author`, `date_published`, `time_published`, `language`, and
 `source`. Downstream processing requires no HTML parsing, selector maintenance, or boilerplate
-stripping. The `time_published` field — extracted via newspaper3k to supplement Trafilatura's
+stripping. The `time_published` field — extracted via [newspaper4k](https://github.com/AndyTheFactory/newspaper4k) to supplement [Trafilatura](https://github.com/adbar/trafilatura)'s
 date-only output — is particularly valuable for temporal ordering in the report.
 
 For BBC-specific sources, the system uses a second pipeline pattern:

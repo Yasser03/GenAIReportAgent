@@ -97,7 +97,7 @@ Thanks to native Streamlit fragments, all these tabs **automatically refresh** a
 ## 📦 Open-Source Dependencies
 
 This exact technical assignment was accelerated by my custom open-source libraries:
-- **[PipeScraper](https://github.com/Yasser03/pipescraper)** — Open-source pipe-based web scraping built on Trafilatura. The agent uses `FetchGoogleNews` and `ExtractArticles` in pipelines.
+- **[PipeScraper](https://github.com/Yasser03/pipescraper)** — Open-source pipe-based web scraping built on [Trafilatura](https://github.com/adbar/trafilatura) and [newspaper4k](https://github.com/AndyTheFactory/newspaper4k). The agent uses `FetchGoogleNews` and `ExtractArticles` in pipelines.
 - **[PipeFrame](https://github.com/Yasser03/pipeframe)** — Verb-based Pandas operations that handle declarative logic steps.
 
 Other integrations include:
