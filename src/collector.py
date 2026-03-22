@@ -145,10 +145,17 @@ def _fallback_rss(topic: str) -> list[dict]:
     return fallback_articles
 
 
+import time
+
+# Token tracking to pace requests within the Groq 6000 TPM limit
+_SESSION_TOKENS = 0
+
 def _generate_report(articles: list[dict], topic: str) -> dict:
     """
-    Use LangChain + Groq to produce a structured JSON report.
+    Use LangChain + Groq to produce a structured JSON report, completely pacing and handling Groq Rate Limits.
     """
+    global _SESSION_TOKENS
+    
     api_key = os.getenv("GROQ_API_KEY", "")
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
@@ -161,6 +168,17 @@ def _generate_report(articles: list[dict], topic: str) -> dict:
     digest = ""
     for i, art in enumerate(articles[:10], 1):
         digest += f"\n[{i}] {art['title']} (Source: {art['source']})\n{art['text'][:600]}\n"
+
+    # --- TOKEN PACING LOGIC ---
+    # Roughly estimate tokens (4 chars/token input + 1000 buffer for generated output)
+    estimated_tokens = len(digest) // 4 + 1000
+    
+    if _SESSION_TOKENS + estimated_tokens > 6000:
+        print(f"[{datetime.now():%H:%M:%S}] ⚠️ Reaching 6000 token limit ({_SESSION_TOKENS} + {estimated_tokens}). Pausing for 60s to refresh Groq RPM bucket...")
+        time.sleep(60)
+        _SESSION_TOKENS = 0  # Reset token bucket after wait
+        
+    _SESSION_TOKENS += estimated_tokens
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", """You are an expert news analyst. Given a set of recent articles,
@@ -184,7 +202,32 @@ Rules:
     ])
 
     chain = prompt | llm
-    result = chain.invoke({"topic": topic, "digest": digest})
+    
+    # --- RATE LIMIT FALLBACK LOOP ---
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            result = chain.invoke({"topic": topic, "digest": digest})
+            break
+        except Exception as e:
+            err_msg = str(e).lower()
+            if "rate limit" in err_msg or "429" in err_msg or "too many requests" in err_msg:
+                # Attempt to parse specific Groq wait time from error e.g. "Please try again in 12m30.816s"
+                wait_time = 60.0
+                match = re.search(r"try again in (?:(\d+)m)?([\d\.]+)s", err_msg)
+                if match:
+                    mins = int(match.group(1)) if match.group(1) else 0
+                    secs = float(match.group(2))
+                    wait_time = (mins * 60) + secs + 2.0  # Add 2s safe buffer
+                
+                print(f"[{datetime.now():%H:%M:%S}] 🕒 Rate Limit Error 429 caught! Sleeping for {wait_time:.1f} seconds before retrying...")
+                time.sleep(wait_time)
+                _SESSION_TOKENS = estimated_tokens  # Start new bucket window
+                if attempt == max_retries - 1:
+                    raise e
+            else:
+                raise e
+
     raw = result.content.strip()
 
     # Strip markdown fences if model adds them anyway
