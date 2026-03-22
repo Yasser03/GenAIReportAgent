@@ -1,7 +1,6 @@
 # 🤖 GenAI Report Agent
 
-> **Data Reply — Graduate AI Engineer Take-Home Challenge**  
-> Built by Dr. Yasser Mustafa
+> **Built by Dr. Yasser Mustafa**  
 
 An autonomous GenAI system that collects news articles from the web, generates structured intelligence reports on a schedule, and lets users chat with the results through a Streamlit interface.
 
