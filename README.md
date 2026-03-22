@@ -12,7 +12,7 @@ An autonomous GenAI system that collects news articles from the web, generates s
 Web Sources (BBC, Google News)
         │
         ▼
-  PipeScraper (pipe-based scraping)
+  [PipeScraper](https://github.com/Yasser03/pipescraper) (pipe-based scraping)
         │  FetchLinks >> ExtractArticles >> FilterArticles >> ToDataFrame
         ▼
   Report Generator (LangChain + Groq / Llama-3.3-70B)
@@ -118,7 +118,7 @@ genai_report_agent/
 ├── README.md
 ├── src/
 │   ├── __init__.py
-│   ├── collector.py        # PipeScraper data collection + Groq report generation
+│   ├── collector.py        # [PipeScraper](https://github.com/Yasser03/pipescraper) data collection + Groq report generation
 │   ├── chat.py             # LangChain conversational chain (grounded on report)
 │   └── report_store.py     # JSON persistence layer
 └── reports/

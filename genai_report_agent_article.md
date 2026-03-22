@@ -33,7 +33,7 @@ each layer, and why those choices matter beyond this specific task.
 
 The deliverable is a **GenAI Report Agent**: an autonomous application that monitors selected news
 sources on an hourly schedule, generates a structured intelligence report using a large language model, and
-exposes a conversational interface grounded in that report. The entire system is built with Python, PipeScraper,
+exposes a conversational interface grounded in that report. The entire system is built with Python, [PipeScraper](https://github.com/Yasser03/pipescraper),
 LangChain, Groq, and Streamlit.
 
 ## 01 Understanding the Problem
@@ -63,7 +63,7 @@ LAYER 1 · COLLECTION
 Web Sources (BBC Technology · BBC Science · Google News · UK Gov)
 │
 ▼
-PipeScraper Pipeline
+[PipeScraper](https://github.com/Yasser03/pipescraper) Pipeline
 FetchGoogleNews(search=[...], period="1d")
 >>
 ExtractArticles(workers=4, skip\_errors=True)
@@ -94,21 +94,21 @@ Each layer is independently testable and replaceable. Swapping Groq for OpenAI r
 identifier. Replacing Streamlit with a REST API requires extracting the collector and chat modules with no
 changes to their internals. This modularity was a conscious design choice, not an accident.
 
-## 03 The Collection Layer: PipeScraper
+## 03 The Collection Layer: [PipeScraper](https://github.com/Yasser03/pipescraper)
 
 The challenge brief suggests BeautifulSoup and Requests as the scraping stack. I chose instead to build on
-**PipeScraper** — an open-source Python library I authored and published at
+**[PipeScraper](https://github.com/Yasser03/pipescraper)** — an open-source Python library I authored and published at
 [`github.com/Yasser03/pipescraper`](https://github.com/Yasser03/pipescraper). This decision warrants explanation, because choosing your own
 tooling is only defensible if the tooling is genuinely the right fit.
 
-PipeScraper is built on top of Trafilatura, which is the current state-of-the-art in boilerplate-free article
+[PipeScraper](https://github.com/Yasser03/pipescraper) is built on top of Trafilatura, which is the current state-of-the-art in boilerplate-free article
 extraction. Where a raw BeautifulSoup scraper would require manual CSS selectors for each target site,
-Trafilatura handles the layout stripping automatically. PipeScraper adds three things on top: a composable
+Trafilatura handles the layout stripping automatically. [PipeScraper](https://github.com/Yasser03/pipescraper) adds three things on top: a composable
 `>>` operator API, parallel multi-threaded extraction, and — critically for this application —
 a `FetchGoogleNews` verb that accepts keyword queries and decodes Google News redirect URLs in
 parallel via a `batchexecute` decoder.
 
-src/collector.py — PipeScraper pipeline
+src/collector.py — [PipeScraper](https://github.com/Yasser03/pipescraper) pipeline
 
 ```
 from pipescraper import FetchGoogleNews, ExtractArticles, ToDataFrame
@@ -287,7 +287,7 @@ submission. Each represents a clear extension path for a production system:
 | Single LLM chain | Multi-agent system with specialist agents for extraction, entity resolution, and cross-report contradiction detection |
 | Streamlit UI | FastAPI REST backend + React frontend for multi-user deployment with authentication |
 
-The multi-agent extension is particularly natural. PipeScraper's pipeline architecture already models the world
+The multi-agent extension is particularly natural. [PipeScraper](https://github.com/Yasser03/pipescraper)'s pipeline architecture already models the world
 as a series of composable transformations — the step to a fully agentic system where each transformation is
 LLM-directed is architecturally short. This is the same pattern underpinning the IIC (Incident Intelligence
 Collector) platform, a production news intelligence system I have been developing independently using the same
@@ -300,7 +300,7 @@ conversational retrieval are individually well-understood problems, but making t
 requires explicit architectural thinking about grounding, scheduling, error handling, and output consistency.
 
 The system presented here handles all three functions with a production-oriented architecture, built on
-open-source tooling that reflects real engineering investment rather than assembled boilerplate. PipeScraper
+open-source tooling that reflects real engineering investment rather than assembled boilerplate. [PipeScraper](https://github.com/Yasser03/pipescraper)
 provides a genuinely superior scraping layer compared to manual BeautifulSoup implementations. Structured
 prompting with strict JSON constraints gives reliable report output. System-level context injection gives a
 grounded chat interface without the overhead of a full RAG pipeline.
@@ -323,7 +323,7 @@ Contents
 
 Stack
 
-PipeScraper
+[PipeScraper](https://github.com/Yasser03/pipescraper)
 LangChain
 Groq
 Llama-3.3-70B
