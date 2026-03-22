@@ -1,0 +1,24 @@
+# ─── Core ───────────────────────────────────────────────────────────────────────
+streamlit>=1.35.0
+python-dotenv>=1.0.0
+
+# ─── LangChain + Groq ───────────────────────────────────────────────────────────
+langchain>=0.2.0
+langchain-groq>=0.1.6
+langchain-core>=0.2.0
+
+# ─── PipeScraper (open-source by Dr. Yasser Mustafa) ────────────────────────────
+pipescraper>=0.3.0
+
+# ─── Scraping dependencies (used by PipeScraper internally) ────────────────────
+trafilatura>=1.6.0
+newspaper3k>=0.2.8
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# ─── Scheduling ─────────────────────────────────────────────────────────────────
+apscheduler>=3.10.0
+
+# ─── Data ───────────────────────────────────────────────────────────────────────
+pandas>=2.0.0
